@@ -6,11 +6,11 @@ import jwt from 'jsonwebtoken'
 async function userRegisterController(req,  res){
     const{name , email , password} = req.body
 
-    const isExist = await userModel.findOne({
+    const isUserExist = await userModel.findOne({
         email : email
     })
 
-    if(isExist){
+    if(isUserExist){
         return res.status(422).json({
             message:"User already exists with this email.",
             status:"failed"
@@ -26,9 +26,10 @@ async function userRegisterController(req,  res){
     res.cookie("token" ,token)
 
     res.status(201).json({
-        message:"User registred successfully",
+        message:"User registered successfully",
         user:{
             _id:user._id,
+            name:user.name,
             email:user.email,
             password:user.password
         }
@@ -60,6 +61,7 @@ async function userRegisterController(req,  res){
 
     res.cookie("token",token)
     res.status(200).json({
+        message:"User login successfully",
         user:{
             _id:user._id,
             name:user.name,

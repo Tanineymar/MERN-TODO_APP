@@ -2,7 +2,7 @@ import express from "express"
 import cors from 'cors'
 import cookieParser from "cookie-parser"
 import authRouter from './routes/auth.routes.js'
-
+import todoRouter from './routes/todo.routes.js'
 
 const app = express()
 
@@ -12,5 +12,6 @@ app.use(cors())
 
 
 app.use("/api/auth" , authRouter)
+app.use("/create" , todoRouter)
 
 export default app
