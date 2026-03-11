@@ -1,9 +1,19 @@
 import express from 'express'
-import createTodo from '../controllers/todo.controller.js'
+import todoController from '../controllers/todo.controller.js'
 import verifyToken from '../middlewares/auth.middleware.js'
 
 const router = express.Router()
 
-router.post("/todo" , verifyToken ,createTodo)
+// CREATE API
+router.post("/create" , verifyToken ,todoController.createTodo)
+
+// READ API
+router.get("/home" ,todoController.fetchTodo )
+
+// UPDATE API
+router.patch("/update/:id" , todoController.updateTodo)
+
+// DELETE API
+router.delete("/:id" ,todoController.deleteTodo)
 
 export default router

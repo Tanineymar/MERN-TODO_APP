@@ -1,31 +1,23 @@
-import todoModel from '../models/todo.model.js'
+import todoModel  from '../models/todo.model.js'
 import jwt from 'jsonwebtoken'
 
 
-const Todos = []
+
 
 async function createTodo(req, res) {
 
     const { title, description, completed = false } = req.body
 
-    try {
 
+    try {
         const Todo = await todoModel.create({
-            title: title,
-            description: description,
-            completed: completed,
+            title,
+            description,
+            completed,
             user: req.user._id
         })
 
-        Todos.push({
-            title: Todo.title,
-            description: Todo.description,
-            completed: Todo.completed,
-            id: Todo._id
-        })
-
-
-
+       
         res.status(201).json({
             message: "Todo created successfully",
             todo: {
@@ -46,6 +38,84 @@ async function createTodo(req, res) {
     }
 }
 
-export { Todos }
 
-export default createTodo
+
+
+async function fetchTodo(req , res) {
+
+     const token =  req.cookies.token
+
+        if(!token){
+            return res.status(401).json({message:"Unauthorized  -Token missing"})
+        }
+
+    try {
+
+        const decoded = jwt.verify(token , process.env.JWT_SECRET)
+      
+        const todos =   await todoModel.find({
+            user : decoded.userId
+        })
+       
+
+        res.status(200).json({
+            message:"Data fetched successfully",
+            todos
+            
+        })
+
+
+    } catch (error) {
+        res.status(500).json("Error to fetch data" ,error)
+    }
+}
+
+
+async function deleteTodo(req ,res) {
+    const id = req.params.id
+
+   try {
+     await todoModel.findByIdAndDelete({
+        _id: id
+    })
+
+    res.status(200).json({
+        message:"Todo deleted successfully"
+    })
+   } catch (error) {
+    res.status(500).josn({
+        message:"Error to delete todo",
+        error
+    })
+   }
+
+
+}
+
+
+async function updateTodo(req, res){
+    const id = req.params.id
+    
+    try {
+        const title  = req.body.title
+        const description = req.body.description
+        
+
+        await todoModel.findByIdAndUpdate({_id:id},
+            {
+                title:title,
+                description:description
+            })
+
+      res.status(200).json({
+        message:"Data updated successfully"
+      })
+    } catch (error) {
+        res.status(500).json({
+            message:"Error to update data",
+            error
+        })
+    }
+}
+
+export default {createTodo ,fetchTodo , deleteTodo, updateTodo}

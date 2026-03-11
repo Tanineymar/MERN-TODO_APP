@@ -12,6 +12,6 @@ app.use(cors())
 
 
 app.use("/api/auth" , authRouter)
-app.use("/create" , todoRouter)
+app.use("/todo" , todoRouter)
 
 export default app
