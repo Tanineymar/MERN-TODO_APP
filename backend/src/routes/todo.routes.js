@@ -8,12 +8,12 @@ const router = express.Router()
 router.post("/create" , verifyToken ,todoController.createTodo)
 
 // READ API
-router.get("/home" ,todoController.fetchTodo )
+router.get("/home" ,verifyToken ,todoController.fetchTodo )
 
 // UPDATE API
-router.patch("/update/:id" , todoController.updateTodo)
+router.patch("/update/:id" ,verifyToken, todoController.updateTodo)
 
 // DELETE API
-router.delete("/:id" ,todoController.deleteTodo)
+router.delete("/:id" ,verifyToken,todoController.deleteTodo)
 
 export default router

@@ -7,9 +7,9 @@ import jwt from 'jsonwebtoken'
 async function createTodo(req, res) {
 
     const { title, description, completed = false } = req.body
-
-
+  
     try {
+
         const Todo = await todoModel.create({
             title,
             description,
@@ -17,7 +17,6 @@ async function createTodo(req, res) {
             user: req.user._id
         })
 
-       
         res.status(201).json({
             message: "Todo created successfully",
             todo: {
@@ -28,8 +27,8 @@ async function createTodo(req, res) {
             }
         })
     } catch (error) {
-        console.log("ERROR", error);
 
+        console.log("ERROR", error);
         res.status(500).json({
             message: "Error in create Todo",
             error
@@ -43,30 +42,22 @@ async function createTodo(req, res) {
 
 async function fetchTodo(req , res) {
 
-     const token =  req.cookies.token
-
-        if(!token){
-            return res.status(401).json({message:"Unauthorized  -Token missing"})
-        }
-
     try {
 
-        const decoded = jwt.verify(token , process.env.JWT_SECRET)
-      
         const todos =   await todoModel.find({
-            user : decoded.userId
+            user : req.user._id
         })
        
-
         res.status(200).json({
             message:"Data fetched successfully",
-            todos
-            
+            todos 
         })
 
-
     } catch (error) {
-        res.status(500).json("Error to fetch data" ,error)
+        res.status(500).json({
+            message:"Error fetching data",
+            error
+        })
     }
 }
 
@@ -83,7 +74,7 @@ async function deleteTodo(req ,res) {
         message:"Todo deleted successfully"
     })
    } catch (error) {
-    res.status(500).josn({
+    res.status(500).json({
         message:"Error to delete todo",
         error
     })
