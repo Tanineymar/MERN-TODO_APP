@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from 'axios'
+import { data } from "react-router-dom"
 function Home(){
 
     const [loading , setLoading]=useState(false)
@@ -25,6 +26,7 @@ function Home(){
            }
         }
         fetchtodos();
+       
     },[])
     return(
         <div>
