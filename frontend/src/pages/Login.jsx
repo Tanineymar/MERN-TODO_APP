@@ -1,55 +1,74 @@
-import {  useState } from "react"
+import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axios from 'axios'
-function Login(){
+function Login() {
 
     const navigate = useNavigate()
 
-    const [email , setEmail]=useState("")
-    const [password ,setPassword]=useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
     const hadleLogin = async (event) => {
         event.preventDefault();
 
         try {
-            const {data} = await axios.post("http://localhost:3000/api/auth/login",{
+            const { data } = await axios.post("http://localhost:3000/api/auth/login", {
                 email,
                 password
-            },{
-                withCredentials:true,
-                headers:{
-                    "Content-type":"application/json"
+            }, {
+                withCredentials: true,
+                headers: {
+                    "Content-type": "application/json"
                 }
             })
             console.log(data)
             alert("User login successfully")
-            localStorage.setItem("token" , data.token)
+            localStorage.setItem("token", data.token)
             navigate("/home")
         } catch (error) {
             console.log(error)
         }
     }
 
-    return(
-        <div>
-            <div>
-                <h1>Login PAGE</h1>
+    return (
+        <div className="flex min-h-screen">
+            {/* Left side */}
+
+            <div className=" hidden lg:flex w-1/2 bg-gradient-to-br from-violet-900 to-indigo-600 text-white p-16 flex-col justify-center">
+                <h1 className="text-3xl mb-10 font-semibold">Taskly</h1>
+
+                <h1 className="text-5xl font-serif leading-relaxed">
+                    Welcome back,<br />
+                    <span className="italic text-fuchsia-300">stay productive.</span>
+                </h1>
+                <p className="mt-6 text-gray-300 max-w-md">
+                    Login to manage your tasks and stay organized everyday.
+                </p>
             </div>
-            <div>
-                <form onSubmit={hadleLogin} method="post">
-                    <div>
-                        <label htmlFor="email" >Email</label>
-                        <input type="email" onChange={(event)=>setEmail(event.target.value)} id="email" placeholder="Enter email" value={email} />
-                    </div>
-                    <div>
-                        <label htmlFor="password" >Password</label>
-                        <input type="password"onChange={(event)=>setPassword(event.target.value)} id="password" placeholder="Enter password" value={password} />
-                    </div>
-                    <button type="Submit">Login</button>
-                    <p>
-                      Don't have an account? <Link to='/register'>Register</Link>
+
+            {/* right side */}
+            <div className="flex w-full lg:w-1/2 items-center justify-center text-white bg-black p-8">
+                <div >
+                    <h2 className="text-4xl font-serif mb-2">Login account</h2>
+                    <p className="text-gray-400 mb-8">Don't have an account?
+                        <Link to='/register' className="text-indigo-400 ml-2">Register</Link>
                     </p>
-                </form>
+                    <form onSubmit={hadleLogin} method="post" className="space-y-5">
+                        <div>
+                            <label htmlFor="email" >Email</label>
+                            <input className="w-full p-3 mt-1.5 rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:border-indigo-500"
+                             type="email" onChange={(event) => setEmail(event.target.value)} id="email" placeholder="Enter email" value={email} />
+                        </div>
+                        <div>
+                            <label htmlFor="password" >Password</label>
+                            <input className="w-full p-3 mt-1.5 rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:border-indigo-500"
+                             type="password" onChange={(event) => setPassword(event.target.value)} id="password" placeholder="Enter password" value={password} />
+                        </div>
+                        <button type="Submit" className="w-full p-3 bg-indigo-600 hover:bg-indigo-800 transition rounded-md font-semibold"
+                        >Login</button>
+                      
+                    </form>
+                </div>
             </div>
         </div>
     )
