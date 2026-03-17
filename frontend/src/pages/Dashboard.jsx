@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 
-function Home(){
+function Dashboard(){
     const navigate = useNavigate()
 
     const [loading , setLoading]=useState(false)
@@ -38,16 +38,11 @@ function Home(){
        
     },[])
     return(
-        <div>
-            <h1>HOME PAGE</h1>
-            {loading && <p>Loading...</p>}
-            {
-                todos.map((todo, id)=>(
-                    <p key={id}>{todo.title}
-                    {todo.description}</p>
-                ))
-            }
+        <div className="flex min-h-screen">
+            <div className="bg-black w-full text-white">
+                <h1>Dashboard page</h1>
+            </div>
         </div>
     )
 }
-export default Home
+export default Dashboard

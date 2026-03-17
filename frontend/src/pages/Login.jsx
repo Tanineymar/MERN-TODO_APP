@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axios from 'axios'
+import Logo from "../assets/Logo"
 function Login() {
 
     const navigate = useNavigate()
@@ -35,7 +36,9 @@ function Login() {
             {/* Left side */}
 
             <div className=" hidden lg:flex w-1/2 bg-gradient-to-br from-violet-900 to-indigo-600 text-white p-16 flex-col justify-center">
-                <h1 className="text-3xl mb-10 font-semibold">Taskly</h1>
+                  <div className="mb-3">
+                        <Logo dark={true} width={200}/>
+                    </div>
 
                 <h1 className="text-5xl font-serif leading-relaxed">
                     Welcome back,<br />
@@ -48,7 +51,10 @@ function Login() {
 
             {/* right side */}
             <div className="flex w-full lg:w-1/2 items-center justify-center text-white bg-black p-8">
-                <div >
+                <div className="w-full max-w-md bg-gray-900 px-8 py-10 rounded-2xl" >
+                    <div className="mb-3">
+                        <Logo dark={true} width={150}/>
+                    </div>
                     <h2 className="text-4xl font-serif mb-2">Login account</h2>
                     <p className="text-gray-400 mb-8">Don't have an account?
                         <Link to='/register' className="text-indigo-400 ml-2">Register</Link>
