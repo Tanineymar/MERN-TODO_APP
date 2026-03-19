@@ -9,7 +9,7 @@ const app = express()
 
 // middleware to connect backend to frontend
 app.use(express.json())
-console.log("FRONTEND_URL:", process.env.FRONTEND_URL)
+
 
 app.use(cors({
     origin:process.env.FRONTEND_URL ,
