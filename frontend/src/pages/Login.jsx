@@ -23,8 +23,8 @@ function Login() {
                 }
             })
             console.log(data)
-            alert("User login successfully")
             localStorage.setItem("token", data.token)
+            alert("User login successfully")
             navigate("/home")
         } catch (error) {
             console.log(error)
@@ -35,7 +35,7 @@ function Login() {
         <div className="flex min-h-screen">
             {/* Left side */}
 
-            <div className=" hidden lg:flex w-1/2 bg-gradient-to-br from-violet-900 to-indigo-600 text-white p-16 flex-col justify-center">
+            <div className=" hidden lg:flex w-1/2 bg-linear-to-br from-violet-900 to-indigo-600 text-white p-16 flex-col justify-center">
                   <div className="mb-3">
                         <Logo dark={true} width={200}/>
                     </div>
