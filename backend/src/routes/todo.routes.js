@@ -11,9 +11,9 @@ router.post("/create" , verifyToken ,todoController.createTodo)
 router.get("/home" ,verifyToken ,todoController.fetchTodo )
 
 // UPDATE API
-router.patch("/update/:id" ,verifyToken, todoController.updateTodo)
+router.put("/update/:id" ,verifyToken, todoController.updateTodo)
 
 // DELETE API
-router.delete("/:id" ,verifyToken,todoController.deleteTodo)
+router.delete("/delete/:id" ,verifyToken,todoController.deleteTodo)
 
 export default router

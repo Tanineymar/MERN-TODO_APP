@@ -21,7 +21,7 @@ async function userRegisterController(req, res) {
         name, email, password
     })
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "10d" })
+    const token = jwt.sign({ userId: user._id  , name:user.name}, process.env.JWT_SECRET, { expiresIn: "10d" })
 
     res.cookie("token", token, {
         httpOnly: true,
@@ -62,7 +62,7 @@ async function userLoginController(req, res) {
         })
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "10d" })
+    const token = jwt.sign({ userId: user._id , name: user.name }, process.env.JWT_SECRET, { expiresIn: "10d" })
 
 
     res.cookie("token", token, {
