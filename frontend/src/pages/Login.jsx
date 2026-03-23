@@ -2,6 +2,8 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axios from 'axios'
 import Logo from "../assets/Logo"
+import toast from "react-hot-toast"
+
 function Login() {
 
     const navigate = useNavigate()
@@ -13,7 +15,7 @@ function Login() {
         event.preventDefault();
 
         try {
-            const { data } = await axios.post("http://localhost:3000/api/auth/login", {
+            const response = await axios.post("http://localhost:3000/api/auth/login", {
                 email,
                 password
             }, {
@@ -22,12 +24,17 @@ function Login() {
                     "Content-type": "application/json"
                 }
             })
-            console.log(data)
-            localStorage.setItem("token", data.token)
-            alert("User login successfully")
+            toast.success(response.data.message)
+            localStorage.setItem("token", response.data.token)
+            setEmail("");
+            setPassword("")
             navigate("/home")
         } catch (error) {
-            console.log(error)
+           if (error.response?.data?.errors) {
+            toast.error(error.response.data.errors[0].msg)
+           } else {
+            toast.error(error.response?.data?.message || "login failed")
+           }
         }
     }
 

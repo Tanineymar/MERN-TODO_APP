@@ -90,12 +90,14 @@ async function updateTodo(req, res){
     try {
         const title  = req.body.title
         const description = req.body.description
+        const completed = req.body.completed
         
 
         await todoModel.findByIdAndUpdate({_id:id},
             {
                 title:title,
-                description:description
+                description:description,
+                completed:completed
             })
 
       res.status(200).json({

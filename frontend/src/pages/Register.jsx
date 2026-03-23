@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axios from 'axios'
 import Logo from "../assets/Logo"
+import toast from 'react-hot-toast'
 
 function Register() {
     const navigate = useNavigate()
@@ -23,26 +24,26 @@ function Register() {
                     "Content-type": "application/json"
                 }
             })
-            console.log(response.data)
-            alert("User registered successfully")
+            toast.success(response.data.message)
             localStorage.setItem("token", response.data.token)
             setName("")
             setEmail("")
             setPassword("")
             navigate("/home")
         } catch (error) {
-            console.log(error)
-            alert("Registration failed")
-             setName("")
-            setEmail("")
-            setPassword("")
+           if (error.response?.data?.errors) {
+            toast.error(error.response.data.errors[0].msg)
+           } else {
+            toast.error(error.response?.data?.message || "Registeration failed")
+           }
+           
         }
     }
 
     return (
         <div className="flex min-h-screen">
             {/* Left side div*/}
-            <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-violet-900 to-indigo-600 text-white p-16 flex-col justify-center">
+            <div className="hidden lg:flex w-1/2 bg-linear-to-br from-violet-900 to-indigo-600 text-white p-16 flex-col justify-center">
               
                 <div className="mb-8">
                      <Logo dark={true} width={200}/>
