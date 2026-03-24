@@ -30,7 +30,7 @@ async function userRegisterController(req, res) {
     })
 
     res.status(201).json({
-        message: "User registered successfully",
+        message: "Registered successfully",
         token,
         user: {
             _id: user._id,
@@ -66,14 +66,14 @@ async function userLoginController(req, res) {
 
 
     res.cookie("token", token, {
-        httpOnly: true,        // ✅ prevents JS access (security)
-        secure: false,         // false for localhost, true in production
-        sameSite: "lax",       // ✅ allows cookie to be sent cross-origin
-        maxAge: 10 * 24 * 60 * 60 * 1000  // 10 days in milliseconds
+        httpOnly: true,        
+        secure: false,        
+        sameSite: "lax",       
+        maxAge: 10 * 24 * 60 * 60 * 1000  
     })
 
     res.status(200).json({
-        message: "User login successfully",
+        message: "Login successful",
         token,
         user: {
             _id: user._id,

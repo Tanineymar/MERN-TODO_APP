@@ -16,7 +16,7 @@ const userRegisterValidation = [
     .isString()
     .withMessage("Username must be in character.")
     .isLength({min:3 , max:20})
-    .withMessage("username must be between 3 and 20 characters."),
+    .withMessage("Username must be between 3 and 20 characters."),
 
     body("email")
     .isEmail()

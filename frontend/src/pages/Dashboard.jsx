@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import Logo from "../assets/Logo"
-import toastq, { toast } from "react-hot-toast"
+import { toast } from "react-hot-toast"
 
 function Dashboard() {
 

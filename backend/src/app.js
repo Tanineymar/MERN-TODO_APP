@@ -11,7 +11,6 @@ const app = express()
 
 console.log("CORS origin set to:", process.env.FRONTEND_URL)
 
-// ✅ CORS must be FIRST — before any routes or other middleware
 app.use(cors({
     origin: process.env.FRONTEND_URL,
     credentials: true,

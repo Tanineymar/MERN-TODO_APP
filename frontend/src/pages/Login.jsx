@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import axios from 'axios'
 import Logo from "../assets/Logo"
 import toast from "react-hot-toast"
+import { useRef } from "react"
 
 function Login() {
 
@@ -10,6 +11,23 @@ function Login() {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    const[showPassword , setShowPassword] = useState(false)
+    const timeRef = useRef(null)
+
+    const handlePasswordChange = (e)=>{
+        setPassword(e.target.value)
+
+        setShowPassword(true)
+
+        if(timeRef.current){
+            clearTimeout(timeRef.current)
+        }
+
+        timeRef.current = setTimeout(()=>{
+            setShowPassword(false)
+        },1000)
+    }
 
     const hadleLogin = async (event) => {
         event.preventDefault();
@@ -73,9 +91,11 @@ function Login() {
                              type="email" onChange={(event) => setEmail(event.target.value)} id="email" placeholder="Enter email" value={email} />
                         </div>
                         <div>
-                            <label htmlFor="password" >Password</label>
+                            <label htmlFor="password">Password</label>
                             <input className="w-full p-3 mt-1.5 rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:border-indigo-500"
-                             type="password" onChange={(event) => setPassword(event.target.value)} id="password" placeholder="Enter password" value={password} />
+                             type={showPassword ? "text" : "password"} onChange={handlePasswordChange}  id="password" placeholder="Enter password" value={password} />
+
+                            
                         </div>
                         <button type="Submit" className="w-full p-3 bg-indigo-600 hover:bg-indigo-800 transition rounded-md font-semibold"
                         >Login</button>
