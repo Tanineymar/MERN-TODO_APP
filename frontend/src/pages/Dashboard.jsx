@@ -12,18 +12,12 @@ function Dashboard() {
 
     const [scrolled,        setScrolled]        = useState(false)
     const [username,        setUsername]        = useState("")
-
-
     const [todos,           setTodos]           = useState([])
     const [loading,         setLoading]         = useState(false)
     const [error,           setError]           = useState(null)
-
-
     const [showForm,        setShowForm]        = useState(false)
     const [title,           setTitle]           = useState("")
     const [description,     setDescription]     = useState("")
-
-
     const [showEdit,        setShowEdit]        = useState(false)
     const [editingTodo,     setEditingTodo]     = useState(null)
     const [editTitle,       setEditTitle]       = useState("")
