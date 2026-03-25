@@ -4,6 +4,7 @@ import axios from 'axios'
 import Logo from "../assets/Logo"
 import toast from "react-hot-toast"
 import { useRef } from "react"
+import api from '../api/axios'
 
 function Login() {
 
@@ -33,7 +34,7 @@ function Login() {
         event.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:3000/api/auth/login", {
+            const response = await api.post("/api/auth/login", {
                 email,
                 password
             }, {

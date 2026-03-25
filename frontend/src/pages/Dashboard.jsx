@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import Logo from "../assets/Logo"
 import { toast } from "react-hot-toast"
+import api from '../api/axios'
+
+
 
 function Dashboard() {
 
@@ -48,6 +50,7 @@ function Dashboard() {
     // 1 FETCH
     useEffect(() => {
         const fetchTodos = async () => {
+
             try {
                 setLoading(true)
                 const token = localStorage.getItem("token")
@@ -55,8 +58,9 @@ function Dashboard() {
 
                 const decoded = JSON.parse(atob(token.split('.')[1]))
                 setUsername(decoded?.name || decoded?.username || "User")
+                
 
-                const res = await axios.get("http://localhost:3000/todo/home", {
+                const res = await api.get(`/todo/home`, {
                     withCredentials: true,
                     headers: { Authorization: `Bearer ${token}` }
                 })
@@ -91,7 +95,7 @@ function Dashboard() {
 
         try {
             const token = localStorage.getItem("token")
-            const res = await axios.post("http://localhost:3000/todo/create",
+            const res = await api.post("/todo/create",
                 { title, description },
                 {
                     withCredentials: true,
@@ -129,8 +133,8 @@ function Dashboard() {
         try {
             const token = localStorage.getItem("token")
             const id = getId(editingTodo)
-            await axios.put(
-                `http://localhost:3000/todo/update/${id}`,
+            await api.put(
+                `/todo/update/${id}`,
                 { title: editTitle, description: editDescription },
                 {
                     withCredentials: true,
@@ -155,8 +159,8 @@ function Dashboard() {
         const id = getId(todo)
         try {
             const token = localStorage.getItem("token")
-            await axios.delete(
-                `http://localhost:3000/todo/delete/${id}`,
+            await api.delete(
+                `/todo/delete/${id}`,
                 {
                     withCredentials: true,
                     headers: { Authorization: `Bearer ${token}` }
@@ -175,8 +179,8 @@ function Dashboard() {
         const id = getId(todo)
         try {
             const token = localStorage.getItem("token")
-            await axios.put(
-                `http://localhost:3000/todo/update/${id}`,
+            await api.put(
+                `/todo/update/${id}`,
                 { completed: !todo.completed },
                 {
                     withCredentials: true,

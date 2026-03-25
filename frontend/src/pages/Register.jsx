@@ -5,6 +5,8 @@ import axios from 'axios'
 import Logo from "../assets/Logo"
 import toast from 'react-hot-toast'
 import { useRef } from "react"
+import api from '../api/axios'
+
 
 function Register() {
     const navigate = useNavigate()
@@ -34,7 +36,7 @@ function Register() {
     const handleRegister = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post("http://localhost:3000/api/auth/register", {
+            const response = await api.post("/api/auth/register", {
                 name,
                 email,
                 password,
